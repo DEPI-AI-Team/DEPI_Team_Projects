@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f2ed">
+  <title>Boston Home Value Estimator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <input class="theme-switch-input" type="checkbox" id="theme-switch" aria-label="Enable dark mode">
+
+  <div class="page-shell">
+    <div class="container">
+      <header class="topbar">
+        <a class="brand" href="#top" aria-label="HomeValue home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" focusable="false">
+              <path d="M5 15.2 16 6l11 9.2v11H5z" />
+              <path d="M12.5 26.2v-7.5h7v7.5M3.5 15.5 16 5l12.5 10.5" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Boston Housing</strong>
+            <small>Price Prediction</small>
+          </span>
+        </a>
+
+        <div class="header-actions">
+          <div class="topbar-tag">
+            <span class="status-dot"></span> HOUSING PRICE MODEL
+          </div>
+
+          <label class="theme-toggle" for="theme-switch" title="Switch between light and dark mode">
+            <span class="toggle-icon" aria-hidden="true">☀</span>
+            <span class="toggle-track"><span class="toggle-knob"></span></span>
+            <span class="toggle-icon moon-icon" aria-hidden="true">☾</span>
+          </label>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow"><span>01</span> BOSTON · HOME VALUE ESTIMATOR</p>
+          <h1 id="page-title">A smarter way to<br><em>see home value.</em></h1>
+          <p class="intro-copy">Enter a few property details to get an estimated value from your housing model.</p>
+        </section>
+
+        <section class="estimator" aria-label="Home price estimator">
+          <div class="form-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="section-kicker">PROPERTY PROFILE</p>
+                <h2>Set your inputs</h2>
+              </div>
+              <span class="input-count">03 <span>FEATURES</span></span>
+            </div>
+
+            <form action="/predict" method="post">
+              <div class="field-group">
+                <label for="rm">
+                  <span class="field-index">01</span>
+                  <span>Average rooms <small>RM · rooms per dwelling</small></span>
+                </label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">⌂</span>
+                  <input id="rm" name="RM" type="number" value="5" step="0.1" min="1" max="10" required>
+                  <span class="input-unit">ROOMS</span>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="lstat">
+                  <span class="field-index">02</span>
+                  <span>Lower-status population <small>LSTAT · percentage</small></span>
+                </label>
+                <div class="input-wrap">
+                  <span class="input-icon people-icon" aria-hidden="true">◉</span>
+                  <input id="lstat" name="LSTAT" type="number" value="14" step="0.5" min="0" max="40" required>
+                  <span class="input-unit">%</span>
+                </div>
+              </div>
+
+              <div class="field-group">
+                <label for="ptratio">
+                  <span class="field-index">03</span>
+                  <span>Pupil–teacher ratio <small>PTRATIO · students per teacher</small></span>
+                </label>
+                <div class="input-wrap">
+                  <span class="input-icon" aria-hidden="true">✳</span>
+                  <input id="ptratio" name="PTRATIO" type="number" value="21" step="0.1" min="10" max="30" required>
+                  <span class="input-unit">RATIO</span>
+                </div>
+              </div>
+
+              <button class="submit-button" type="submit">
+                <span>Calculate estimate</span>
+                <span class="button-arrow" aria-hidden="true">↗</span>
+              </button>
+              <p class="form-note">
+                <span aria-hidden="true">↳</span>
+                Your inputs are sent to the prediction service.
+              </p>
+            </form>
+          </div>
+
+          <aside class="result-panel" aria-label="Estimated home value">
+            <div class="result-topline">
+              <span>MODEL OUTPUT</span>
+              <span class="result-spark" aria-hidden="true">✳</span>
+            </div>
+            <p class="result-label">ESTIMATED HOME VALUE</p>
+            <!-- In Flask, replace the sample value with {{ price }} -->
+            <p class="result-price">$245,000</p>
+            <p class="result-caption">A sample value, ready to be replaced by your model prediction.</p>
+
+            <div class="artwork" aria-hidden="true">
+              <svg viewBox="0 0 420 245" role="img" focusable="false">
+                <defs>
+                  <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#263d56" />
+                    <stop offset="1" stop-color="#18283a" />
+                  </linearGradient>
+                  <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#f4e8ce" />
+                    <stop offset="1" stop-color="#d9c7a6" />
+                  </linearGradient>
+                </defs>
+                <rect x="1" y="1" width="418" height="243" rx="18" fill="url(#sky)" />
+                <circle cx="337" cy="57" r="25" fill="#b9d9f1" opacity=".95" />
+                <path d="M0 190c62-21 102-12 157 1 58 14 108-4 164-9 38-3 71 5 99 14v49H0z" fill="#30485f" />
+                <path d="M63 128 203 48l142 80-14 14-128-71-126 72z" fill="#b9d9f1" />
+                <path d="M87 127h232v86H87z" fill="url(#wall)" />
+                <path d="M75 126 203 54l130 72" fill="none" stroke="#e9e5d6" stroke-width="5" stroke-linejoin="round" />
+                <path d="M103 142h43v39h-43zM260 142h43v39h-43z" fill="#496780" stroke="#fff8e9" stroke-width="5" />
+                <path d="M124.5 144v35M105 161.5h39M281.5 144v35M262 161.5h39" stroke="#fff8e9" stroke-width="3" />
+                <path d="M177 148a26 26 0 0 1 52 0v65h-52z" fill="#496780" />
+                <circle cx="216" cy="182" r="2.5" fill="#b9d9f1" />
+                <path d="M196 213h15l19 31h-53z" fill="#c9b48f" />
+                <path d="M40 213h340" stroke="#b9d9f1" stroke-opacity=".55" stroke-width="2" />
+                <path d="M44 206V143M31 161c1-21 27-29 39-11 15-3 22 17 10 27H42c-8 0-12-5-11-16Z" fill="#789bb7" />
+                <path d="M375 206v-62M361 164c1-20 25-28 37-11 14-3 21 16 9 26h-38c-7 0-9-6-8-15Z" fill="#789bb7" />
+                <circle cx="64" cy="216" r="3" fill="#b9d9f1" />
+                <circle cx="351" cy="216" r="3" fill="#b9d9f1" />
+              </svg>
+              <div class="art-label">
+                <span class="art-pin" aria-hidden="true">●</span> BOSTON HOUSING
+              </div>
+            </div>
+
+            <div class="result-footer">
+              <span><b>03</b> model features</span>
+              <span class="footer-divider"></span>
+              <span><b>01</b> estimated value</span>
+            </div>
+          </aside>
+        </section>
+
+        <footer class="page-footer">
+          <span>BOSTON HOUSING · PRICE PREDICTION</span>
+          <span>MODEL-DRIVEN ESTIMATION</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
