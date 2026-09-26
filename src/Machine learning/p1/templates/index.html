@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3f2ed">
   <title>Boston Home Value Estimator</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
   <input class="theme-switch-input" type="checkbox" id="theme-switch" aria-label="Enable dark mode">
@@ -110,9 +110,14 @@
               <span class="result-spark" aria-hidden="true">✳</span>
             </div>
             <p class="result-label">ESTIMATED HOME VALUE</p>
-            <!-- In Flask, replace the sample value with {{ price }} -->
-            <p class="result-price">$245,000</p>
-            <p class="result-caption">A sample value, ready to be replaced by your model prediction.</p>
+            <p class="result-price">
+                          {% if prediction_text %}
+                            {{ prediction_text }}
+                          {% else %}
+                            —
+                          {% endif %}
+                        </p>
+            <p class="result-caption">Based on your input, calculated using our trained model.</p>
 
             <div class="artwork" aria-hidden="true">
               <svg viewBox="0 0 420 245" role="img" focusable="false">
